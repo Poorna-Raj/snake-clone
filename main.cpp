@@ -1,15 +1,19 @@
 #include "raylib.h"
+#include "core/SceneManager.h"
 
 int main()
 {
     InitWindow(500, 500, "Window");
     SetTargetFPS(60);
 
-    while (!WindowShouldClose())
+    SceneManager manager;
+
+    while (!WindowShouldClose() && !manager.shouldClose())
     {
         BeginDrawing();
         ClearBackground(RAYWHITE);
-        DrawText("Hello Snake", 240, 250, 20, PINK);
+        manager.update();
+        manager.draw();
         EndDrawing();
     }
 
