@@ -3,7 +3,7 @@
 
 int main()
 {
-    InitWindow(500, 500, "Window");
+    InitWindow(625, 625, "Window");
     SetTargetFPS(60);
 
     SceneManager manager;
