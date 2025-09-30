@@ -11,7 +11,7 @@ private:
     bool requestNextScene = false;
     bool shouldExit = false;
 
-    const int cellSize = 30;
+    const int cellSize = 25;
     const int cellCount = 25;
 
     Food food;
