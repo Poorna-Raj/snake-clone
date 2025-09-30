@@ -17,4 +17,6 @@ public:
 
     void movements(bool grow);
     void takeInputs();
+
+    std::vector<Vector2> getSnake();
 };

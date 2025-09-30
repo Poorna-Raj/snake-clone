@@ -57,3 +57,8 @@ void Snake::takeInputs()
         direction = {0, 1};
     }
 }
+
+std::vector<Vector2> Snake::getSnake()
+{
+    return snake;
+}
