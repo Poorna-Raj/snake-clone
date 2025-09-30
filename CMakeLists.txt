@@ -6,6 +6,7 @@ find_package(raylib CONFIG REQUIRED)
 
 add_subdirectory(src/scene)
 add_subdirectory(src/core)
+add_subdirectory(src/object)
 
 add_executable(${PROJECT_NAME} main.cpp)
 
@@ -17,4 +18,5 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
     raylib
     Scene
     CoreLib
+    Object
 )
