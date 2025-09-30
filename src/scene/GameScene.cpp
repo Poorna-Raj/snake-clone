@@ -6,6 +6,7 @@ GameScene::~GameScene() {};
 
 void GameScene::draw()
 {
+    food.draw(cellSize);
     DrawText("Game Scene", 100, 100, 20, GREEN);
     DrawText("Press Q to exit", 100, 130, 20, RED);
     DrawText("Press ENTER to play", 100, 160, 20, BLUE);
