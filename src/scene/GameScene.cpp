@@ -18,7 +18,8 @@ void GameScene::update()
     snake.takeInputs();
     if (eventTriggerForSnakeUpdate(0.2))
     {
-        snake.update(false);
+        snake.update(snakeEat);
+        checkCollisionSnakeFood();
     }
     if (IsKeyPressed(KEY_Q))
     {
@@ -40,6 +41,21 @@ bool GameScene::eventTriggerForSnakeUpdate(double interval)
         return true;
     }
     return false;
+}
+
+void GameScene::checkCollisionSnakeFood()
+{
+    Rectangle foodRec = {food.position.x * cellSize, food.position.y * cellSize, cellSize, cellSize};
+    Rectangle snakeHead = {snake.getSnake()[0].x * cellSize, snake.getSnake()[0].y * cellSize, cellSize, cellSize};
+
+    if (CheckCollisionRecs(foodRec, snakeHead))
+    {
+        snakeEat = true;
+    }
+    else
+    {
+        snakeEat = false;
+    }
 }
 
 bool GameScene::shouldClose()

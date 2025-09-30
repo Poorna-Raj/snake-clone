@@ -16,6 +16,7 @@ private:
     const int cellCount = 25;
 
     double lastUpdatedTime = 0;
+    bool snakeEat = false;
 
     Food food;
     Snake snake;
@@ -29,6 +30,7 @@ public:
     bool shouldClose();
 
     bool eventTriggerForSnakeUpdate(double interval);
+    void checkCollisionSnakeFood();
 
     SceneType nextScene();
 };
