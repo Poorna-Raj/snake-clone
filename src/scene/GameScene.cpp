@@ -1,6 +1,9 @@
 #include "scene/GameScene.h"
 
-GameScene::GameScene() {};
+GameScene::GameScene()
+{
+    reSpawnFood();
+};
 
 GameScene::~GameScene() {};
 
@@ -45,17 +48,24 @@ bool GameScene::eventTriggerForSnakeUpdate(double interval)
 
 void GameScene::checkCollisionSnakeFood()
 {
-    Rectangle foodRec = {food.position.x * cellSize, food.position.y * cellSize, cellSize, cellSize};
-    Rectangle snakeHead = {snake.getSnake()[0].x * cellSize, snake.getSnake()[0].y * cellSize, cellSize, cellSize};
+    Rectangle foodRec = {food.position.x * (float)cellSize, food.position.y * (float)cellSize, (float)cellSize, (float)cellSize};
+    Rectangle snakeHead = {snake.getSnake()[0].x * (float)cellSize, snake.getSnake()[0].y * (float)cellSize, (float)cellSize, (float)cellSize};
 
     if (CheckCollisionRecs(foodRec, snakeHead))
     {
         snakeEat = true;
+        reSpawnFood();
     }
     else
     {
         snakeEat = false;
     }
+}
+
+void GameScene::reSpawnFood()
+{
+    food.position.x = (float)GetRandomValue(0, cellCount);
+    food.position.y = (float)GetRandomValue(0, cellCount);
 }
 
 bool GameScene::shouldClose()
