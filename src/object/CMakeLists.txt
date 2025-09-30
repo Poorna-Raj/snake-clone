@@ -1,5 +1,6 @@
 set(SOURCES
     Food.cpp
+    Snake.cpp
 )
 
 add_library(Object ${SOURCES})
