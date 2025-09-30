@@ -32,6 +32,7 @@ public:
     bool eventTriggerForSnakeUpdate(double interval);
     void checkCollisionSnakeFood();
     void reSpawnFood();
+    void checkCollisionSnakeSnake();
 
     SceneType nextScene();
 };

@@ -23,6 +23,7 @@ void GameScene::update()
     {
         snake.update(snakeEat);
         checkCollisionSnakeFood();
+        checkCollisionSnakeSnake();
     }
     if (IsKeyPressed(KEY_Q))
     {
@@ -64,8 +65,26 @@ void GameScene::checkCollisionSnakeFood()
 
 void GameScene::reSpawnFood()
 {
-    food.position.x = (float)GetRandomValue(0, cellCount);
-    food.position.y = (float)GetRandomValue(0, cellCount);
+    food.position.x = (float)GetRandomValue(0, cellCount - 1);
+    food.position.y = (float)GetRandomValue(0, cellCount - 1);
+}
+
+void GameScene::checkCollisionSnakeSnake()
+{
+    Rectangle snakeHead = {snake.getSnake()[0].x * (float)cellSize, snake.getSnake()[0].y * (float)cellSize, (float)cellSize, (float)cellSize};
+    const auto &segments = snake.getSnake();
+    for (size_t i = 1; i < segments.size(); i++)
+    {
+        Rectangle segmentRec = {segments[i].x * cellSize,
+                                segments[i].y * cellSize,
+                                (float)cellSize,
+                                (float)cellSize};
+        if (CheckCollisionRecs(snakeHead, segmentRec))
+        {
+            requestNextScene = true;
+            break;
+        }
+    }
 }
 
 bool GameScene::shouldClose()
