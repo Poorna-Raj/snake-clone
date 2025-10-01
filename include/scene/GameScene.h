@@ -33,6 +33,7 @@ public:
     void checkCollisionSnakeFood();
     void reSpawnFood();
     void checkCollisionSnakeSnake();
+    void checkCollisionSnakeBorder();
 
     SceneType nextScene();
 };

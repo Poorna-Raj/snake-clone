@@ -26,6 +26,7 @@ void GameScene::update()
         snake.update(snakeEat);
         checkCollisionSnakeFood();
         checkCollisionSnakeSnake();
+        checkCollisionSnakeBorder();
     }
     if (IsKeyPressed(KEY_Q))
     {
@@ -86,6 +87,16 @@ void GameScene::checkCollisionSnakeSnake()
             requestNextScene = true;
             break;
         }
+    }
+}
+
+void GameScene::checkCollisionSnakeBorder()
+{
+    const Vector2 &snakeHead = snake.getSnake()[0];
+
+    if (snakeHead.x < 0 || snakeHead.x >= cellCount || snakeHead.y < 0 || snakeHead.y >= cellCount)
+    {
+        requestNextScene = true;
     }
 }
 
