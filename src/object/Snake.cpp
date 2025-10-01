@@ -8,15 +8,22 @@ Snake::Snake()
     snake.push_back(Vector2{10, 13});
 
     direction = {1, 0};
+
+    setSnakeBodyTexture(LoadTexture("assets/objects/Snake-Body.png"));
 }
 
-Snake::~Snake() {};
+Snake::~Snake()
+{
+    UnloadTexture(getSnakeBodyTexture());
+};
 
 void Snake::draw(int cellSize, int offsetY)
 {
     for (Vector2 &seg : snake)
     {
-        DrawRectangle((int)seg.x * cellSize, offsetY + (int)seg.y * cellSize, cellSize, cellSize, BLUE);
+        Rectangle src = {0, 0, getSnakeBodyTexture().width, getSnakeBodyTexture().height};
+        Rectangle dest = {(int)seg.x * cellSize, offsetY + (int)seg.y * cellSize, cellSize, cellSize};
+        DrawTexturePro(getSnakeBodyTexture(), src, dest, {0, 0}, 0.0f, WHITE);
     }
 }
 
@@ -61,4 +68,14 @@ void Snake::takeInputs()
 std::vector<Vector2> &Snake::getSnake()
 {
     return snake;
+}
+
+const Texture2D &Snake::getSnakeBodyTexture() const
+{
+    return snakeBodyTexture;
+}
+
+void Snake::setSnakeBodyTexture(const Texture2D &tex)
+{
+    snakeBodyTexture = tex;
 }

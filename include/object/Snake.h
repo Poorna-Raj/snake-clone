@@ -7,6 +7,8 @@ class Snake
 private:
     std::vector<Vector2> snake;
     Vector2 direction;
+    Texture2D snakeHeadTexture;
+    Texture2D snakeBodyTexture;
 
 public:
     Snake();
@@ -19,4 +21,7 @@ public:
     void takeInputs();
 
     std::vector<Vector2> &getSnake();
+    const Texture2D &getSnakeBodyTexture() const;
+
+    void setSnakeBodyTexture(const Texture2D &tex);
 };
