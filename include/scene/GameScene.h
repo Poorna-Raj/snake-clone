@@ -12,8 +12,8 @@ private:
     bool requestNextScene = false;
     bool shouldExit = false;
 
-    const int cellSize = 25;
-    const int cellCount = 25;
+    const int cellSize = 20;
+    const int cellCount = 20;
 
     double lastUpdatedTime = 0;
     bool snakeEat = false;

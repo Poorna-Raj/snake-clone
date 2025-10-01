@@ -9,11 +9,10 @@ GameScene::~GameScene() {};
 
 void GameScene::draw()
 {
+    DrawRectangleLines(0, 0, cellCount * cellSize, cellCount * cellSize, RED);
+
     food.draw(cellSize);
     snake.draw(cellSize);
-    DrawText("Game Scene", 100, 100, 20, GREEN);
-    DrawText("Press Q to exit", 100, 130, 20, RED);
-    DrawText("Press ENTER to play", 100, 160, 20, BLUE);
 }
 
 void GameScene::update()
