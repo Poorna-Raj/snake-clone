@@ -17,7 +17,7 @@ void Food::draw(int cellSize, int offsetY)
     DrawTexturePro(getTexture(), src, dest, {0, 0}, 0.0f, WHITE);
 }
 
-void Food::setTexture(Texture2D text)
+void Food::setTexture(const Texture2D &text)
 {
     texture = text;
 }
@@ -25,4 +25,14 @@ void Food::setTexture(Texture2D text)
 const Texture2D &Food::getTexture() const
 {
     return texture;
+}
+
+void Food::setPosition(const Vector2 &pos)
+{
+    position = pos;
+}
+
+Vector2 Food::getPosition() const
+{
+    return position;
 }
