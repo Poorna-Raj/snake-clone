@@ -12,11 +12,11 @@ Snake::Snake()
 
 Snake::~Snake() {};
 
-void Snake::draw(int cellSize)
+void Snake::draw(int cellSize, int offsetY)
 {
     for (Vector2 &seg : snake)
     {
-        DrawRectangle(seg.x * cellSize, seg.y * cellSize, cellSize, cellSize, BLUE);
+        DrawRectangle(seg.x * cellSize, offsetY + seg.y * cellSize, cellSize, cellSize, BLUE);
     }
 }
 

@@ -4,7 +4,7 @@ Food::Food() {};
 
 Food::~Food() {};
 
-void Food::draw(int cellSize)
+void Food::draw(int cellSize, int offsetY)
 {
-    DrawRectangle(position.x * cellSize, position.y * cellSize, cellSize, cellSize, YELLOW);
+    DrawRectangle((int)position.x * cellSize, offsetY + (int)position.y * cellSize, cellSize, cellSize, YELLOW);
 }

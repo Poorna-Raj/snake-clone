@@ -12,7 +12,7 @@ public:
     Snake();
     ~Snake();
 
-    void draw(int cellSize);
+    void draw(int cellSize, int offsetY);
     void update(bool grow);
 
     void movements(bool grow);

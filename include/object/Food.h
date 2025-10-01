@@ -9,5 +9,5 @@ public:
     Food();
     ~Food();
 
-    void draw(int cellSize);
+    void draw(int cellSize, int offsetY);
 };
