@@ -35,5 +35,7 @@ public:
     void checkCollisionSnakeSnake();
     void checkCollisionSnakeBorder();
 
+    void drawStatusBar();
+
     SceneType nextScene();
 };

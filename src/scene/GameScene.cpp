@@ -12,7 +12,8 @@ GameScene::~GameScene() {};
 
 void GameScene::draw()
 {
-    DrawRectangleLines(0, offsetY, cellCount * cellSize, cellCount * cellSize, RED);
+    DrawRectangle(0, offsetY, cellCount * cellSize, cellCount * cellSize, DARKGRAY);
+    drawStatusBar();
 
     food.draw(cellSize, offsetY);
     snake.draw(cellSize, offsetY);
@@ -98,6 +99,12 @@ void GameScene::checkCollisionSnakeBorder()
     {
         requestNextScene = true;
     }
+}
+
+void GameScene::drawStatusBar()
+{
+    DrawRectangle(0, 0, GetScreenWidth(), offsetY, BLACK);
+    DrawText(TextFormat("Player - %d", (int)snake.getSnake().size() - 3), 10, offsetY / 2 - 10, 20, WHITE);
 }
 
 bool GameScene::shouldClose()
