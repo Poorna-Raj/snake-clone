@@ -16,7 +16,7 @@ void Snake::draw(int cellSize, int offsetY)
 {
     for (Vector2 &seg : snake)
     {
-        DrawRectangle(seg.x * cellSize, offsetY + seg.y * cellSize, cellSize, cellSize, BLUE);
+        DrawRectangle((int)seg.x * cellSize, offsetY + (int)seg.y * cellSize, cellSize, cellSize, BLUE);
     }
 }
 
@@ -58,7 +58,7 @@ void Snake::takeInputs()
     }
 }
 
-std::vector<Vector2> Snake::getSnake()
+std::vector<Vector2> &Snake::getSnake()
 {
     return snake;
 }
