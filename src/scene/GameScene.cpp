@@ -1,18 +1,21 @@
 #include "scene/GameScene.h"
 
+int offsetY;
+
 GameScene::GameScene()
 {
     reSpawnFood();
+    offsetY = (GetScreenHeight() - (cellCount * cellSize));
 };
 
 GameScene::~GameScene() {};
 
 void GameScene::draw()
 {
-    DrawRectangleLines(0, 0, cellCount * cellSize, cellCount * cellSize, RED);
+    DrawRectangleLines(0, offsetY, cellCount * cellSize, cellCount * cellSize, RED);
 
-    food.draw(cellSize);
-    snake.draw(cellSize);
+    food.draw(cellSize, offsetY);
+    snake.draw(cellSize, offsetY);
 }
 
 void GameScene::update()
@@ -48,8 +51,8 @@ bool GameScene::eventTriggerForSnakeUpdate(double interval)
 
 void GameScene::checkCollisionSnakeFood()
 {
-    Rectangle foodRec = {food.position.x * (float)cellSize, food.position.y * (float)cellSize, (float)cellSize, (float)cellSize};
-    Rectangle snakeHead = {snake.getSnake()[0].x * (float)cellSize, snake.getSnake()[0].y * (float)cellSize, (float)cellSize, (float)cellSize};
+    Rectangle foodRec = {food.position.x * (float)cellSize, offsetY + food.position.y * (float)cellSize, (float)cellSize, (float)cellSize};
+    Rectangle snakeHead = {snake.getSnake()[0].x * (float)cellSize, offsetY + snake.getSnake()[0].y * (float)cellSize, (float)cellSize, (float)cellSize};
 
     if (CheckCollisionRecs(foodRec, snakeHead))
     {
@@ -70,12 +73,12 @@ void GameScene::reSpawnFood()
 
 void GameScene::checkCollisionSnakeSnake()
 {
-    Rectangle snakeHead = {snake.getSnake()[0].x * (float)cellSize, snake.getSnake()[0].y * (float)cellSize, (float)cellSize, (float)cellSize};
+    Rectangle snakeHead = {snake.getSnake()[0].x * (float)cellSize, offsetY + snake.getSnake()[0].y * (float)cellSize, (float)cellSize, (float)cellSize};
     const auto &segments = snake.getSnake();
     for (size_t i = 1; i < segments.size(); i++)
     {
         Rectangle segmentRec = {segments[i].x * cellSize,
-                                segments[i].y * cellSize,
+                                offsetY + segments[i].y * cellSize,
                                 (float)cellSize,
                                 (float)cellSize};
         if (CheckCollisionRecs(snakeHead, segmentRec))
