@@ -53,7 +53,7 @@ bool GameScene::eventTriggerForSnakeUpdate(double interval)
 
 void GameScene::checkCollisionSnakeFood()
 {
-    Rectangle foodRec = {food.position.x * (float)cellSize, offsetY + food.position.y * (float)cellSize, (float)cellSize, (float)cellSize};
+    Rectangle foodRec = {food.getPosition().x * (float)cellSize, offsetY + food.getPosition().y * (float)cellSize, (float)cellSize, (float)cellSize};
     Rectangle snakeHead = {snake.getSnake()[0].x * (float)cellSize, offsetY + snake.getSnake()[0].y * (float)cellSize, (float)cellSize, (float)cellSize};
 
     if (CheckCollisionRecs(foodRec, snakeHead))
@@ -69,8 +69,11 @@ void GameScene::checkCollisionSnakeFood()
 
 void GameScene::reSpawnFood()
 {
-    food.position.x = (float)GetRandomValue(0, cellCount - 1);
-    food.position.y = (float)GetRandomValue(0, cellCount - 1);
+    Vector2 newPosition = {
+        (float)GetRandomValue(0, cellCount - 1),
+        (float)GetRandomValue(0, cellCount - 1)};
+
+    food.setPosition(newPosition);
 }
 
 void GameScene::checkCollisionSnakeSnake()
