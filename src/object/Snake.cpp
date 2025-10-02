@@ -11,6 +11,7 @@ Snake::Snake(int cellSize) : cellSize(cellSize)
 
     setSnakeBodyTexture(LoadTexture("assets/objects/Snake-Body.png"));
     setSnakeHeadTexture(LoadTexture("assets/objects/Snake-Head.png"));
+    setSnakeTailTexture(LoadTexture("assets/objects/Snake-Tail.png"));
     setSnakeHeadOrigin({cellSize / 2.0f, cellSize / 2.0f});
 }
 
@@ -18,6 +19,7 @@ Snake::~Snake()
 {
     UnloadTexture(getSnakeBodyTexture());
     UnloadTexture(getSnakeHeadTexture());
+    UnloadTexture(getSnakeTailTexture());
 };
 
 void Snake::draw(int offsetY)
@@ -30,6 +32,11 @@ void Snake::draw(int offsetY)
         {
             Rectangle src = {0.0f, 0.0f, (float)getSnakeHeadTexture().width, (float)getSnakeHeadTexture().height};
             DrawTexturePro(getSnakeHeadTexture(), src, dest, getSnakeHeadOrigin(), getSnakeHeadRotation(), WHITE);
+        }
+        else if (i == getSnake().size() - 1)
+        {
+            Rectangle src = {0.0f, 0.0f, (float)getSnakeTailTexture().width, (float)getSnakeTailTexture().height};
+            DrawTexturePro(getSnakeTailTexture(), src, dest, getSnakeHeadOrigin(), calculateTailRotation(getSnake()[i], getSnake()[i - 1]), WHITE);
         }
         else
         {
@@ -81,6 +88,22 @@ void Snake::takeInputs()
     }
 }
 
+float Snake::calculateTailRotation(Vector2 &tail, Vector2 &before)
+{
+    Vector2 difference = Vector2Subtract(before, tail);
+
+    if (difference.x == 1 && difference.y == 0)
+        return 90.0f;
+    if (difference.x == -1 && difference.y == 0)
+        return 270.0f;
+    if (difference.x == 0 && difference.y == -1)
+        return 0.0f;
+    if (difference.x == 0 && difference.y == 1)
+        return 180.0f;
+
+    return 0.0f;
+}
+
 std::vector<Vector2> &Snake::getSnake()
 {
     return snake;
@@ -94,6 +117,16 @@ const Texture2D &Snake::getSnakeBodyTexture() const
 void Snake::setSnakeBodyTexture(const Texture2D &tex)
 {
     snakeBodyTexture = tex;
+}
+
+const Texture2D &Snake::getSnakeTailTexture() const
+{
+    return snakeTailTexture;
+}
+
+void Snake::setSnakeTailTexture(const Texture2D &tex)
+{
+    snakeTailTexture = tex;
 }
 
 const Texture2D &Snake::getSnakeHeadTexture() const

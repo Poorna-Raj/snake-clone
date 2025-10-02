@@ -9,6 +9,7 @@ private:
     Vector2 direction;
     Texture2D snakeHeadTexture;
     Texture2D snakeBodyTexture;
+    Texture2D snakeTailTexture;
 
     float snakeHeadRotation = 0.0f;
     Vector2 snakeHeadOrigin;
@@ -24,10 +25,12 @@ public:
 
     void movements(bool grow);
     void takeInputs();
+    float calculateTailRotation(Vector2 &tail, Vector2 &before);
 
     std::vector<Vector2> &getSnake();
     const Texture2D &getSnakeBodyTexture() const;
     const Texture2D &getSnakeHeadTexture() const;
+    const Texture2D &getSnakeTailTexture() const;
     const float &getSnakeHeadRotation() const;
     const Vector2 &getSnakeHeadOrigin() const;
     const int getCellSize() const;
@@ -35,6 +38,7 @@ public:
 
     void setSnakeBodyTexture(const Texture2D &tex);
     void setSnakeHeadTexture(const Texture2D &tex);
+    void setSnakeTailTexture(const Texture2D &tex);
     void setSnakeHeadRotation(const float rotation);
     void setSnakeHeadOrigin(const Vector2 &origin);
     void setCellSize(const int size);
