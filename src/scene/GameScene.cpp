@@ -6,13 +6,17 @@ GameScene::GameScene() : snake(cellSize)
 {
     reSpawnFood();
     offsetY = (GetScreenHeight() - (cellCount * cellSize));
+    setPlayBgTexture(LoadTexture("assets/backgrounds/Game-Bg.png"));
 };
 
-GameScene::~GameScene() {};
+GameScene::~GameScene()
+{
+    UnloadTexture(getPlayBgTexture());
+};
 
 void GameScene::draw()
 {
-    DrawRectangle(0, offsetY, cellCount * cellSize, cellCount * cellSize, DARKGRAY);
+    drawPlayArea();
     drawStatusBar();
 
     food.draw(cellSize, offsetY);
@@ -110,6 +114,14 @@ void GameScene::drawStatusBar()
     DrawText(TextFormat("Player - %d", (int)snake.getSnake().size() - 3), 10, offsetY / 2 - 10, 20, WHITE);
 }
 
+void GameScene::drawPlayArea()
+{
+    Rectangle src = {0.0f, 0.0f, (float)getPlayBgTexture().width, (float)getPlayBgTexture().height};
+    Rectangle dest = {0.0f, (float)offsetY, (float)(cellCount * cellSize), (float)(cellCount * cellSize)};
+    DrawTexturePro(getPlayBgTexture(), src, dest, {0, 0}, 0.0f, WHITE);
+    // DrawRectangle(0, offsetY, cellCount * cellSize, cellCount * cellSize, DARKGRAY);
+}
+
 bool GameScene::shouldClose()
 {
     return shouldExit;
@@ -118,4 +130,14 @@ bool GameScene::shouldClose()
 SceneType GameScene::nextScene()
 {
     return requestNextScene ? SceneType::START : SceneType::NONE;
+}
+
+const Texture2D &GameScene::getPlayBgTexture() const
+{
+    return playBgTexture;
+}
+
+void GameScene::setPlayBgTexture(const Texture2D &tex)
+{
+    playBgTexture = tex;
 }

@@ -21,6 +21,8 @@ private:
     Food food;
     Snake snake;
 
+    Texture2D playBgTexture;
+
 public:
     GameScene();
     ~GameScene();
@@ -28,6 +30,7 @@ public:
     void draw();
     void update();
     bool shouldClose();
+    void drawPlayArea();
 
     bool eventTriggerForSnakeUpdate(double interval);
     void checkCollisionSnakeFood();
@@ -36,6 +39,9 @@ public:
     void checkCollisionSnakeBorder();
 
     void drawStatusBar();
+
+    const Texture2D &getPlayBgTexture() const;
+    void setPlayBgTexture(const Texture2D &tex);
 
     SceneType nextScene();
 };
