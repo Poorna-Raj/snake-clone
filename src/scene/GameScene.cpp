@@ -102,7 +102,7 @@ void GameScene::checkCollisionSnakeBorder()
 {
     const Vector2 &snakeHead = snake.getSnake()[0];
 
-    if (snakeHead.x < 0 || snakeHead.x >= cellCount || snakeHead.y < 0 || snakeHead.y >= cellCount)
+    if (snakeHead.x <= 0 || snakeHead.x >= cellCount - 1 || snakeHead.y <= 0 || snakeHead.y >= cellCount - 1)
     {
         requestNextScene = true;
     }
