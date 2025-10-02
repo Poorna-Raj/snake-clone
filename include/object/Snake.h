@@ -10,11 +10,16 @@ private:
     Texture2D snakeHeadTexture;
     Texture2D snakeBodyTexture;
 
+    float snakeHeadRotation = 0.0f;
+    Vector2 snakeHeadOrigin;
+
+    int cellSize;
+
 public:
-    Snake();
+    Snake(int cellSize);
     ~Snake();
 
-    void draw(int cellSize, int offsetY);
+    void draw(int offsetY);
     void update(bool grow);
 
     void movements(bool grow);
@@ -23,7 +28,15 @@ public:
     std::vector<Vector2> &getSnake();
     const Texture2D &getSnakeBodyTexture() const;
     const Texture2D &getSnakeHeadTexture() const;
+    const float &getSnakeHeadRotation() const;
+    const Vector2 &getSnakeHeadOrigin() const;
+    const int getCellSize() const;
+    const Vector2 &getDirection() const;
 
     void setSnakeBodyTexture(const Texture2D &tex);
     void setSnakeHeadTexture(const Texture2D &tex);
+    void setSnakeHeadRotation(const float rotation);
+    void setSnakeHeadOrigin(const Vector2 &origin);
+    void setCellSize(const int size);
+    void setDirection(const Vector2 &dir);
 };
