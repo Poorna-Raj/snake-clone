@@ -10,20 +10,31 @@ Snake::Snake()
     direction = {1, 0};
 
     setSnakeBodyTexture(LoadTexture("assets/objects/Snake-Body.png"));
+    setSnakeHeadTexture(LoadTexture("assets/objects/Snake-Head.png"));
 }
 
 Snake::~Snake()
 {
     UnloadTexture(getSnakeBodyTexture());
+    UnloadTexture(getSnakeHeadTexture());
 };
 
 void Snake::draw(int cellSize, int offsetY)
 {
-    for (Vector2 &seg : snake)
+    for (size_t i = 0; i < getSnake().size(); i++)
     {
-        Rectangle src = {0, 0, getSnakeBodyTexture().width, getSnakeBodyTexture().height};
-        Rectangle dest = {(int)seg.x * cellSize, offsetY + (int)seg.y * cellSize, cellSize, cellSize};
-        DrawTexturePro(getSnakeBodyTexture(), src, dest, {0, 0}, 0.0f, WHITE);
+        Rectangle dest = {getSnake()[i].x * (float)cellSize, offsetY + getSnake()[i].y * (float)cellSize, (float)cellSize, (float)cellSize};
+
+        if (i == 0)
+        {
+            Rectangle src = {0.0f, 0.0f, (float)getSnakeHeadTexture().width, (float)getSnakeHeadTexture().height};
+            DrawTexturePro(getSnakeHeadTexture(), src, dest, {0, 0}, 0.0f, WHITE);
+        }
+        else
+        {
+            Rectangle src = {0.0f, 0.0f, (float)getSnakeBodyTexture().width, (float)getSnakeBodyTexture().height};
+            DrawTexturePro(getSnakeBodyTexture(), src, dest, {0, 0}, 0.0f, WHITE);
+        }
     }
 }
 
@@ -78,4 +89,14 @@ const Texture2D &Snake::getSnakeBodyTexture() const
 void Snake::setSnakeBodyTexture(const Texture2D &tex)
 {
     snakeBodyTexture = tex;
+}
+
+const Texture2D &Snake::getSnakeHeadTexture() const
+{
+    return snakeHeadTexture;
+}
+
+void Snake::setSnakeHeadTexture(const Texture2D &tex)
+{
+    snakeHeadTexture = tex;
 }

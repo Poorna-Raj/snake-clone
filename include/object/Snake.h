@@ -22,6 +22,8 @@ public:
 
     std::vector<Vector2> &getSnake();
     const Texture2D &getSnakeBodyTexture() const;
+    const Texture2D &getSnakeHeadTexture() const;
 
     void setSnakeBodyTexture(const Texture2D &tex);
+    void setSnakeHeadTexture(const Texture2D &tex);
 };
