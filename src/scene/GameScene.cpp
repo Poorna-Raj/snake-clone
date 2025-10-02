@@ -2,7 +2,7 @@
 
 int offsetY;
 
-GameScene::GameScene()
+GameScene::GameScene() : snake(cellSize)
 {
     reSpawnFood();
     offsetY = (GetScreenHeight() - (cellCount * cellSize));
@@ -16,7 +16,7 @@ void GameScene::draw()
     drawStatusBar();
 
     food.draw(cellSize, offsetY);
-    snake.draw(cellSize, offsetY);
+    snake.draw(offsetY);
 }
 
 void GameScene::update()
