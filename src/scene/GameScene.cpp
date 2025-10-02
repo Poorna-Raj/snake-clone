@@ -74,8 +74,8 @@ void GameScene::checkCollisionSnakeFood()
 void GameScene::reSpawnFood()
 {
     Vector2 newPosition = {
-        (float)GetRandomValue(0, cellCount - 1),
-        (float)GetRandomValue(0, cellCount - 1)};
+        (float)GetRandomValue(1, cellCount - 2),
+        (float)GetRandomValue(1, cellCount - 2)};
 
     food.setPosition(newPosition);
 }
