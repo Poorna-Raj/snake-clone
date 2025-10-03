@@ -3,7 +3,7 @@
 
 int main()
 {
-    InitWindow(400, 400 + 60, "Window");
+    InitWindow(400, 400 + 60, "Snake Game");
     SetTargetFPS(60);
 
     SceneManager manager;
