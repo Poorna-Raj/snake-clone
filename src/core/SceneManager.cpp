@@ -1,6 +1,7 @@
 #include "core/SceneManager.h"
 #include "scene/StartScene.h"
 #include "scene/GameScene.h"
+#include "scene/EndScene.h"
 
 SceneManager::SceneManager()
 {
@@ -19,6 +20,9 @@ void SceneManager::switchScene(SceneType type)
         break;
     case SceneType::GAMEPLAY:
         currentScene = std::make_unique<GameScene>();
+        break;
+    case SceneType::GAMEOVER:
+        currentScene = std::make_unique<EndScene>();
         break;
     default:
         currentScene = nullptr;
@@ -45,6 +49,16 @@ void SceneManager::update()
         if (auto gameScene = dynamic_cast<GameScene *>(currentScene.get()))
         {
             SceneType next = gameScene->nextScene();
+
+            if (next != SceneType::NONE)
+            {
+                switchScene(next);
+            }
+        }
+
+        if (auto endScene = dynamic_cast<EndScene *>(currentScene.get()))
+        {
+            SceneType next = endScene->nextScene();
 
             if (next != SceneType::NONE)
             {
