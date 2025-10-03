@@ -111,7 +111,11 @@ void GameScene::checkCollisionSnakeBorder()
 void GameScene::drawStatusBar()
 {
     DrawRectangle(0, 0, GetScreenWidth(), offsetY, BLACK);
-    DrawText(TextFormat("Player - %d", (int)snake.getSnake().size() - 3), 10, offsetY / 2 - 10, 20, WHITE);
+    DrawText("Score = ", 10, offsetY / 2 - 10, 20, WHITE);
+    DrawTexture(food.getTexture(), 100, offsetY / 2 - 10, WHITE);
+    DrawText(TextFormat("x %d", (int)snake.getSnake().size() - 3), 130, offsetY / 2 - 10, 20, WHITE);
+
+    // DrawText(TextFormat("Player - %d", (int)snake.getSnake().size() - 3), 10, offsetY / 2 - 10, 20, WHITE);
 }
 
 void GameScene::drawPlayArea()
