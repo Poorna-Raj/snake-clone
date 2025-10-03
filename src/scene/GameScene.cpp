@@ -180,7 +180,7 @@ bool GameScene::shouldClose()
 
 SceneType GameScene::nextScene()
 {
-    return requestNextScene ? SceneType::START : SceneType::NONE;
+    return requestNextScene ? SceneType::GAMEOVER : SceneType::NONE;
 }
 
 const Texture2D &GameScene::getPlayBgTexture() const
