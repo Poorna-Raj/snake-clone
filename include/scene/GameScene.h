@@ -11,6 +11,7 @@ class GameScene : public Scene
 private:
     bool requestNextScene = false;
     bool shouldExit = false;
+    bool isPaused = false;
 
     const int cellSize = 20;
     const int cellCount = 20;
@@ -31,6 +32,8 @@ public:
     void update();
     bool shouldClose();
     void drawPlayArea();
+    void drawPauseMenu();
+    void updatePauseMenu();
 
     bool eventTriggerForSnakeUpdate(double interval);
     void checkCollisionSnakeFood();

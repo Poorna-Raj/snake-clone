@@ -21,17 +21,29 @@ void GameScene::draw()
 
     food.draw(cellSize, offsetY);
     snake.draw(offsetY);
+
+    if (isPaused)
+    {
+        drawPauseMenu();
+    }
 }
 
 void GameScene::update()
 {
-    snake.takeInputs();
-    if (eventTriggerForSnakeUpdate(0.2))
+    if (!isPaused)
     {
-        snake.update(snakeEat);
-        checkCollisionSnakeFood();
-        checkCollisionSnakeSnake();
-        checkCollisionSnakeBorder();
+        snake.takeInputs();
+        if (eventTriggerForSnakeUpdate(0.2))
+        {
+            snake.update(snakeEat);
+            checkCollisionSnakeFood();
+            checkCollisionSnakeSnake();
+            checkCollisionSnakeBorder();
+        }
+    }
+    else
+    {
+        updatePauseMenu();
     }
     if (IsKeyPressed(KEY_Q))
     {
@@ -41,6 +53,11 @@ void GameScene::update()
     if (IsKeyPressed(KEY_ENTER))
     {
         requestNextScene = true;
+    }
+
+    if (IsKeyPressed(KEY_TAB))
+    {
+        isPaused = !isPaused;
     }
 }
 
@@ -114,8 +131,6 @@ void GameScene::drawStatusBar()
     DrawText("Score = ", 10, offsetY / 2 - 10, 20, WHITE);
     DrawTexture(food.getTexture(), 100, offsetY / 2 - 10, WHITE);
     DrawText(TextFormat("x %d", (int)snake.getSnake().size() - 3), 130, offsetY / 2 - 10, 20, WHITE);
-
-    // DrawText(TextFormat("Player - %d", (int)snake.getSnake().size() - 3), 10, offsetY / 2 - 10, 20, WHITE);
 }
 
 void GameScene::drawPlayArea()
@@ -123,7 +138,39 @@ void GameScene::drawPlayArea()
     Rectangle src = {0.0f, 0.0f, (float)getPlayBgTexture().width, (float)getPlayBgTexture().height};
     Rectangle dest = {0.0f, (float)offsetY, (float)(cellCount * cellSize), (float)(cellCount * cellSize)};
     DrawTexturePro(getPlayBgTexture(), src, dest, {0, 0}, 0.0f, WHITE);
-    // DrawRectangle(0, offsetY, cellCount * cellSize, cellCount * cellSize, DARKGRAY);
+}
+
+void GameScene::drawPauseMenu()
+{
+    DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), {0, 0, 0, 150});
+    DrawRectangle(GetScreenWidth() / 2 - 150, GetScreenHeight() / 2 - 150, 300, 300, {0, 0, 0, 200});
+
+    DrawText("GAME PAUSED", GetScreenWidth() / 2 - 110, GetScreenHeight() / 2 - 100, 30, {255, 255, 255, 255});
+
+    Rectangle resumeBtn = {GetScreenWidth() / 2 - 60.0f, GetScreenHeight() / 2 - 50.0f, 120, 40};
+    bool hoveringResume = CheckCollisionPointRec(GetMousePosition(), resumeBtn);
+    DrawRectangleRec(resumeBtn, hoveringResume ? Color{60, 120, 255, 255} : Color{20, 60, 160, 255});
+    DrawText("Resume", (int)resumeBtn.x + 23, (int)resumeBtn.y + 10, 20, Color{255, 255, 255, 255});
+
+    Rectangle exitBtn = {GetScreenWidth() / 2 - 60.0f, GetScreenHeight() / 2 + 30.0f, 120, 40};
+    bool hoveringExit = CheckCollisionPointRec(GetMousePosition(), exitBtn);
+    DrawRectangleRec(exitBtn, hoveringExit ? Color{255, 60, 60, 255} : Color{160, 20, 20, 255});
+    DrawText("Exit", (int)exitBtn.x + 40, (int)exitBtn.y + 10, 20, Color{255, 255, 255, 255});
+}
+
+void GameScene::updatePauseMenu()
+{
+    Rectangle resumeBtn = {GetScreenWidth() / 2 - 60.0f, GetScreenHeight() / 2 - 50.0f, 120, 40};
+    if (CheckCollisionPointRec(GetMousePosition(), resumeBtn) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+    {
+        isPaused = !isPaused;
+    }
+
+    Rectangle exitBtn = {GetScreenWidth() / 2 - 60.0f, GetScreenHeight() / 2 + 30.0f, 120, 40};
+    if (CheckCollisionPointRec(GetMousePosition(), exitBtn) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+    {
+        shouldExit = true;
+    }
 }
 
 bool GameScene::shouldClose()
